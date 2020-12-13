@@ -6,7 +6,7 @@ var button = d3.select("#filter-btn")
 var form = d3.select("#form")
 
 button.on("click", submission);
-button.on("submit", submission);
+form.on("submit", submission);
 
 function submission() {
 
@@ -21,5 +21,17 @@ function submission() {
     var filteredData = tableData.filter(item => item.datetime === inputValue);
 
     console.log(filteredData);
+
+    var list = d3.select("#tbody");
+
+    list.html("");
+    
+    filteredData.forEach((data) => {
+        var row = list.append("tr");
+        Object.entries(data).forEach(([key, value]) => {
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
 
 }
